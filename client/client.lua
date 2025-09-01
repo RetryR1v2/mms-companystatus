@@ -14,12 +14,24 @@ if Config.Debug then
     end)
 end
 
+local Job = nil
+
 CompanyBlips = {}
 
 CreatedCompanyBlips = {}
 
+RegisterCommand(Config.StatusCommand, function()
+    for h,v in pairs(CompanyBlips) do
+        if v.Job == Job then
+            TriggerServerEvent('mms-companystatus:server:ToggleCompanyStatus',h)
+            VORPcore.NotifyRightTip(_U('CompanyStatusChanged'),5000)
+        end
+    end
+end)
+
 RegisterNetEvent('mms-companystatus:client:SendDataToClient')
 AddEventHandler('mms-companystatus:client:SendDataToClient',function(MyJob,CompanyBlipsFromServer)
+    Job = MyJob
     local BlipColor = nil
     CompanyBlips = CompanyBlipsFromServer
     local ChangeCompanyStatusGroup = BccUtils.Prompts:SetupPromptGroup()
@@ -31,7 +43,7 @@ AddEventHandler('mms-companystatus:client:SendDataToClient',function(MyJob,Compa
         else
             BlipColor = 'BLIP_MODIFIER_MP_COLOR_8'
         end
-        local Blip = BccUtils.Blips:SetBlip(v.Company, 'blip_hat', 2.0, v.Coords.x,v.Coords.y,v.Coords.z)
+        local Blip = BccUtils.Blips:SetBlip(v.Company, v.BlipSprite, 2.0, v.Coords.x,v.Coords.y,v.Coords.z)
         local blipModifier = BccUtils.Blips:AddBlipModifier(Blip, BlipColor)
         blipModifier:ApplyModifier()
         CreatedCompanyBlips[#CreatedCompanyBlips + 1] = Blip

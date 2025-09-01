@@ -12,7 +12,8 @@
 # Changelog
 
 - 1.1.0 Initial Release Version
-
+- 1.1.1 Added Command to Change Status
+- Fixed Config you can now Change Blip Sprite in Config.
 
 # installation 
 
