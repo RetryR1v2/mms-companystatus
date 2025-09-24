@@ -14,6 +14,9 @@
 - 1.1.0 Initial Release Version
 - 1.1.1 Added Command to Change Status
 - Fixed Config you can now Change Blip Sprite in Config.
+- 1.1.2 You can now Announce you Are Open or Close Depending on Status
+- If Green it Says you are Open.
+- If Red it Says Company Closes.
 
 # installation 
 

@@ -29,6 +29,16 @@ RegisterCommand(Config.StatusCommand, function()
     end
 end)
 
+RegisterCommand(Config.AnnounceCommand, function()
+    for h,v in pairs(CompanyBlips) do
+        if v.Job == Job and v.CanAnnounce then
+            TriggerServerEvent('mms-companystatus:server:AnnounceMyCompany',h,v.Company)
+        elseif v.Job == Job and not v.CanAnnounce then
+            VORPcore.NotifyRightTip(_U('YouCantAnnounce'),5000)
+        end
+    end
+end)
+
 RegisterNetEvent('mms-companystatus:client:SendDataToClient')
 AddEventHandler('mms-companystatus:client:SendDataToClient',function(MyJob,CompanyBlipsFromServer)
     Job = MyJob

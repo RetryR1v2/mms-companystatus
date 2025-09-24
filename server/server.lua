@@ -31,3 +31,15 @@ RegisterServerEvent('mms-companystatus:server:ToggleCompanyStatus',function(Inde
         TriggerClientEvent('mms-companystatus:client:ReloadData',v,CompanyBlips)
     end
 end)
+
+RegisterServerEvent('mms-companystatus:server:AnnounceMyCompany',function(Index,CompanyName)
+    if CompanyBlips[Index].Status then
+        for h,v in ipairs(GetPlayers()) do
+            VORPcore.NotifySimpleTop(v,_U('CompanyIsOpen'), CompanyName, 15000)
+        end
+    else
+        for h,v in ipairs(GetPlayers()) do
+            VORPcore.NotifySimpleTop(v,_U('CompanyIsClosed'), CompanyName, 15000)
+        end
+    end
+end)
